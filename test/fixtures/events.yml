@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  event_type: MyString
+  at: 2020-11-29 20:31:41
+  button_color: MyString
+
+two:
+  name: MyString
+  event_type: MyString
+  at: 2020-11-29 20:31:41
+  button_color: MyString
