@@ -4,38 +4,46 @@ class EventsController < ApplicationController
   # GET /events
   def index
     @events = Event.all
-
     render json: @events
   end
 
   # GET /events/1
   def show
-    render json: @event
+    @event = Event.find(params[:id])
+    render json @event
   end
 
   # POST /events
   def create
     @event = Event.new(event_params)
-
     if @event.save
       render json: @event, status: :created, location: @event
     else
-      render json: @event.errors, status: :unprocessable_entity
+      render json: { error: 'Unable to create Event.' }, status: 422
     end
   end
 
   # PATCH/PUT /events/1
   def update
-    if @event.update(event_params)
-      render json: @event
-    else
-      render json: @event.errors, status: :unprocessable_entity
-    end
+      @event = Event.find(params[:id])
+      if @event
+        @event.update(event_params)
+        render json: {message: 'Event successfully updated.' }, status: 200
+      else
+        render json { error: 'Unable to update Event' }, status: 422
+      end
   end
 
   # DELETE /events/1
   def destroy
-    @event.destroy
+    @event = Event.find(params[:id])
+      if @event
+          @event.destroy
+          render json: {message: 'Event successfully deleted.' }, status: 200
+        else
+          render json { error: 'Unable to delete Event' }, status: 422
+        end
+    end
   end
 
   private
